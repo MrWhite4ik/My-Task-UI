@@ -1,1 +1,6 @@
-<p>checkbox-field works!</p>
+<div>
+    <label>{{ title }}</label>
+    <div *NgFor="let item of items">
+      <input type="checkbox" [formControl]="control" [value]="item" /> {{ item }}
+    </div>
+  </div>

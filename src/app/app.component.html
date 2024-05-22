@@ -1,2 +1,35 @@
-<h1 class="text-5xl">getting started</h1>
-<router-outlet />
+<div class="min-h-screen flex flex-col">
+  <header class="h-12 px-3 bg-indigo-500 text-white flex justify-center pt-3">
+    <span>My-Task-UI</span>
+  </header>
+  <section class="max-w-md mx-auto">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div *NgFor="let element of formElements">
+        <app-input-field
+          *ngIf="element.type === 'text'"
+          [title]="element.title"
+          [control]="getFormControl(element.key)"
+        ></app-input-field>
+        <app-checkbox-field
+          *ngIf="element.type === 'checkbox'"
+          [title]="element.title"
+          [items]="element.items"
+          [control]="getFormControl(element.key)"
+        ></app-checkbox-field>
+        <app-dropdown-field
+          *ngIf="element.type === 'dropdown'"
+          [title]="element.title"
+          [items]="element.items"
+          [control]="getFormControl(element.key)"
+        ></app-dropdown-field>
+      </div>
+      <button
+        class="mt-5 inline-block rounded bg-indigo-500 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+  </section>
+</div>
+<router-outlet></router-outlet>

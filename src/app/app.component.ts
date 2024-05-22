@@ -7,6 +7,7 @@ import { FormElement } from './form-element.model';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormService } from './form.service/form.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,6 @@ import { FormService } from './form.service/form.service';
     InputFieldComponent,
     CheckboxFieldComponent,
     DropdownFieldComponent,
-    RouterOutlet,
     CommonModule
   ],
   templateUrl: './app.component.html',
@@ -50,31 +50,26 @@ export class AppComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      // Construct form data including elements field
       const formData = {
-        name: this.form.value.name, // Assuming name field exists in the form
+        name: 'Simple Form',
+        key: uuidv4(), // Generate a unique key
         elements: this.formElements.map(element => ({
           title: element.title,
           key: element.key,
-          value: this.form.value[element.key]
+          value: this.form.get(element.key)?.value
         }))
       };
-
-      // Call submitForm method of FormService with form data
-      this.formService.submitForm(formData)
-        .subscribe(
-          (response) => {
-            console.log('Form submitted successfully:', response);
-            // Optionally, reset the form after successful submission
-            this.form.reset();
-          },
-          (error) => {
-            console.error('Error submitting form:', error);
-          }
-        );
+      this.formService.submitForm(formData).subscribe(
+        (response) => {
+          console.log('Form submitted successfully:', response);
+          this.form.reset();
+        },
+        (error) => {
+          console.error('Error submitting form:', error);
+        }
+      );
     } else {
-      // Handle form validation errors
-      console.error('Form is invalid');
+      console.log('Form is invalid');
     }
   }
 }

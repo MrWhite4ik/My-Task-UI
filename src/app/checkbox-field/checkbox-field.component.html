@@ -1,6 +1,6 @@
 <div>
     <label>{{ title }}</label>
     <div *NgFor="let item of items">
-      <input type="checkbox" [formControl]="control" [value]="item" /> {{ item }}
+      <input type="checkbox" class="size-4 rounded border-gray-300"[formControl]="control" [value]="item" /> {{ item }}
     </div>
   </div>

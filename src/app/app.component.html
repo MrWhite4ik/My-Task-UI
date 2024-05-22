@@ -1,8 +1,12 @@
 <div class="min-h-screen flex flex-col">
-  <header class="h-12 px-3 bg-indigo-500 text-white flex justify-center pt-3 mb-5">
+  <header
+    class="h-12 px-3 bg-indigo-500 text-white flex justify-center pt-3 mb-5"
+  >
     <span>My-Task-UI</span>
   </header>
-  <section class="max-w-md mx-auto relative block overflow-hidden rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8">
+  <section
+    class="max-w-md mx-auto gap-4 relative rounded-lg border border-gray-300 p-4 sm:p-6 lg:p-8"
+  >
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div *ngFor="let element of formElements">
         <app-input-field
@@ -24,7 +28,7 @@
         ></app-dropdown-field>
       </div>
       <button
-        class="mt-5 inline-block rounded bg-indigo-500 px-8 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
+        class="px-40 mx-auto inline-block rounded bg-indigo-500 py-3 text-sm font-medium text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-indigo-500"
         type="submit"
       >
         Submit
@@ -32,4 +36,3 @@
     </form>
   </section>
 </div>
-<router-outlet></router-outlet>

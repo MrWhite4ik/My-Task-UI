@@ -1,1 +1,6 @@
-<p>dropdown-field works!</p>
+<div>
+  <label>{{ title }}</label>
+  <select [formControl]="control">
+    <option *NgFor="let item of items" [value]="item">{{ item }}</option>
+  </select>
+</div>

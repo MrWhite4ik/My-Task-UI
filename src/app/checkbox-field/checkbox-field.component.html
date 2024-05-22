@@ -1,6 +1,9 @@
-<div>
-    <label>{{ title }}</label>
-    <div *ngFor="let item of items">
-      <input type="checkbox" class="size-4 rounded border-gray-300"[formControl]="control" [value]="item" /> {{ item }}
+<div class="flex items-center space-x-2 pb-2">
+  <label class="pr-2">{{ title }}</label>
+  <div class="flex space-x-4">
+    <div *ngFor="let item of items" class="flex items-center space-x-1">
+      <input type="checkbox" [formControl]="control" [value]="item" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+      <span class="text-sm">{{ item }}</span>
     </div>
   </div>
+</div>

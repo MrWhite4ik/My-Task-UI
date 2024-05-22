@@ -6,6 +6,7 @@ import { DropdownFieldComponent } from './dropdown-field/dropdown-field.componen
 import { FormElement } from './form-element.model';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormService } from './form.service/form.service';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,10 @@ export class AppComponent implements OnInit {
     { title: 'Cars', key: 'cars', type: 'dropdown', items: ['Volvo', 'Seat', 'Fiat'] }
   ];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private formService: FormService 
+  ) {}
 
   ngOnInit() {
     const formControls = this.formElements.reduce((acc, element) => {
@@ -45,7 +49,32 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
-    // Add code to send form data to the server
+    if (this.form.valid) {
+      // Construct form data including elements field
+      const formData = {
+        name: this.form.value.name, // Assuming name field exists in the form
+        elements: this.formElements.map(element => ({
+          title: element.title,
+          key: element.key,
+          value: this.form.value[element.key]
+        }))
+      };
+
+      // Call submitForm method of FormService with form data
+      this.formService.submitForm(formData)
+        .subscribe(
+          (response) => {
+            console.log('Form submitted successfully:', response);
+            // Optionally, reset the form after successful submission
+            this.form.reset();
+          },
+          (error) => {
+            console.error('Error submitting form:', error);
+          }
+        );
+    } else {
+      // Handle form validation errors
+      console.error('Form is invalid');
+    }
   }
 }
